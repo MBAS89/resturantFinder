@@ -6,7 +6,8 @@ const errorHandler = require("./middleware/error");
 
 const app = express()
 
-app.use(cors())
+app.use(cors());
+app.use(express.json());
 
 //public route 
 app.get("/api/v1", (req, res) => {

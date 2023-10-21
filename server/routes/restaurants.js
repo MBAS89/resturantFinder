@@ -6,9 +6,9 @@ const { getAllRestaurants, getSingleRestaurant, createRestaurant, updateRestaura
 
 
 router.get('/', getAllRestaurants)
-router.get('/', getSingleRestaurant)
+router.get('/:id', getSingleRestaurant)
 router.post('/', createRestaurant)
-router.put('/', updateRestaurant)
-router.delete('/', deleteRestaurant)
+router.put('/:id', updateRestaurant)
+router.delete('/:id', deleteRestaurant)
 
 module.exports = router
