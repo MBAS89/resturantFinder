@@ -27,7 +27,7 @@ export const RestaurantsList = () => {
 
         fetchData()
 
-    },[])
+    },[restaurants])
 
     return (
         <div className='w-[90%] mx-auto border-[1px] border-primary mt-5'>

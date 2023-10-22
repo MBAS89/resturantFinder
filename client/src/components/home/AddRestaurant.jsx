@@ -1,19 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+//api
+import RestaurantsApi from '../../apis/RestaurantsApi'
 
 export const AddRestaurant = () => {
+
+  const [name, setName] = useState("")
+  const [location, setLocation] = useState("")
+  const [priceRange, setPriceRange] = useState("Price Range?")
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const res = await RestaurantsApi.post("/", {
+        name,
+        location,
+        priceRange
+      })
+
+      console.log(res)
+
+    } catch (error) {
+      console.log(error)
+    }
+    
+
+
+  }
+
+
   return (
     <div className='flex justify-center items-center gap-5 w-[90%] mx-auto mt-4'>
-        <input type="text" placeholder="Name" className="input input-bordered input-primary w-full" />
-        <input type="text" placeholder="Location" className="input input-bordered input-primary w-full" />
-        <select className="select select-primary w-full">
-            <option defaultValue>Price Range?</option>
+        <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Name" className="input input-bordered input-primary w-full" />
+        <input value={location} onChange={(e) => setLocation(e.target.value)}  type="text" placeholder="Location" className="input input-bordered input-primary w-full" />
+        <select value={priceRange} onChange={(e) => setPriceRange(e.target.value)} className="select select-primary w-full">
+            <option disabled>Price Range?</option>
             <option value="1">$</option>
             <option value="2">$$</option>
             <option value="3">$$$</option>
             <option value="4">$$$$</option>
             <option value="5">$$$$$</option>
         </select>
-        <button className="btn btn-primary w-1/6">Add</button>
+        <button onClick={handleSubmit} type='submit' className="btn btn-primary w-1/6">Add</button>
     </div>
   )
 }
