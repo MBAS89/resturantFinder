@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 //api
 import RestaurantsApi from '../../apis/RestaurantsApi'
 
-export const AddRestaurant = () => {
+//context
+import { RestaurantsContext } from '../../context/RestaurantsContext'
 
+export const AddRestaurant = () => {
+  const { addRestaurants } = useContext(RestaurantsContext);
   const [name, setName] = useState("")
   const [location, setLocation] = useState("")
   const [priceRange, setPriceRange] = useState("Price Range?")
@@ -19,7 +22,7 @@ export const AddRestaurant = () => {
         priceRange
       })
 
-      console.log(res)
+      addRestaurants(res.data.data.restaurants[0]);
 
     } catch (error) {
       console.log(error)

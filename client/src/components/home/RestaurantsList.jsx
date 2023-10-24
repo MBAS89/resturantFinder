@@ -27,7 +27,20 @@ export const RestaurantsList = () => {
 
         fetchData()
 
-    },[restaurants])
+    },[])
+    console.log(restaurants)
+
+    const handleDelete = (id) => async () => {
+        try {
+            const res = await RestaurantsApi.delete(`/${id}`)
+
+            setRestaurants(restaurants.filter(restaurant => {
+                return restaurant.id !== id
+            }))
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className='w-[90%] mx-auto border-[1px] border-primary mt-5'>
@@ -62,7 +75,7 @@ export const RestaurantsList = () => {
                                 </td>
                                 <td className='flex gap-4'>
                                     <button className='btn btn-square btn-warning'><FiEdit2 className='text-[1.2rem]'/></button>
-                                    <button className='btn btn-square btn-error'><FiTrash className='text-[1.2rem]'/></button>
+                                    <button onClick={handleDelete(restaurant.id)} className='btn btn-square btn-error'><FiTrash className='text-[1.2rem]'/></button>
                                 </td>
                             </tr>
                         ))}
