@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 
 //api
 import RestaurantsApi from '../../apis/RestaurantsApi';
@@ -9,6 +9,7 @@ import { RestaurantsContext } from '../../context/RestaurantsContext';
 //icons
 import { FiEdit2 } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
+import { UpdateRestaurant } from './UpdateRestaurant';
 
 export const RestaurantsList = () => {
 
@@ -28,7 +29,6 @@ export const RestaurantsList = () => {
         fetchData()
 
     },[])
-    console.log(restaurants)
 
     const handleDelete = (id) => async () => {
         try {
@@ -41,6 +41,12 @@ export const RestaurantsList = () => {
             console.log(error)
         }
     }
+
+    //update Restaurant
+    const [updateId, setUpdateId] = useState("")
+    const [newName, setNewName] = useState("")
+    const [newLocation, setNewLocation] = useState("")
+    const [newPriceRange, setNewPriceRange] = useState("Price Range?")
 
     return (
         <div className='w-[90%] mx-auto border-[1px] border-primary mt-5'>
@@ -74,7 +80,18 @@ export const RestaurantsList = () => {
                                     </div>
                                 </td>
                                 <td className='flex gap-4'>
-                                    <button className='btn btn-square btn-warning'><FiEdit2 className='text-[1.2rem]'/></button>
+                                    <button 
+                                        className='btn btn-square btn-warning' 
+                                        onClick={()=> {
+                                            document.getElementById('my_modal_1').showModal(); 
+                                            setUpdateId(restaurant.id);
+                                            setNewName(restaurant.name)
+                                            setNewLocation(restaurant.location)
+                                            setNewPriceRange(restaurant.price_range)
+                                        }
+                                    }>
+                                        <FiEdit2 className='text-[1.2rem]'/>
+                                    </button>
                                     <button onClick={handleDelete(restaurant.id)} className='btn btn-square btn-error'><FiTrash className='text-[1.2rem]'/></button>
                                 </td>
                             </tr>
@@ -82,6 +99,15 @@ export const RestaurantsList = () => {
                     </tbody>
                 </table>
             </div>
+            <UpdateRestaurant 
+                updateId={updateId} 
+                setNewName={setNewName} 
+                setNewLocation={setNewLocation} 
+                setNewPriceRange={setNewPriceRange}
+                newName={newName}
+                newLocation={newLocation}
+                newPriceRange={newPriceRange}
+            />
         </div>
     )
 }
