@@ -8,9 +8,6 @@ import { MainLayout } from "./components/layout/MainLayout"
 //routes components
 import { HomePage } from "./pages/HomePage"
 import { RestaurantDetailPage } from "./pages/RestaurantDetailPage"
-import { RestaurantUpdatePage } from "./pages/RestaurantUpdatePage"
-
-
 
 
 function App() {
@@ -22,11 +19,6 @@ function App() {
             <MainLayout>
               <HomePage />
             </MainLayout>
-        }></Route>
-        <Route path="/restaurants/:id/update" element={
-            <MainLayout>
-              <RestaurantUpdatePage />
-          </MainLayout>
         }></Route>
         <Route path="/restaurants/:id" element={
             <MainLayout>
