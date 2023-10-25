@@ -49,7 +49,7 @@ export const RestaurantsList = () => {
     const [newPriceRange, setNewPriceRange] = useState("Price Range?")
 
     return (
-        <div className='w-[90%] mx-auto border-[1px] border-primary mt-5'>
+        <div className='w-[90%] mx-auto border-[1px] border-primary my-5 h-fit'>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}

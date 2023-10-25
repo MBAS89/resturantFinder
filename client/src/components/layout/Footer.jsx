@@ -4,7 +4,7 @@ export const Footer = () => {
 
   const currentYear = new Date().getFullYear
   return (
-    <footer className="footer footer-center p-4 bg-base-300 text-base-content">
+    <footer className="footer footer-center p-4 bg-base-300 text-base-content fixed bottom-0 ">
       <aside>
         <p>Copyright © {currentYear} - All right reserved</p>
       </aside>
