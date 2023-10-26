@@ -8,9 +8,13 @@ import RestaurantsApi from '../../apis/RestaurantsApi';
 import { RestaurantsContext } from '../../context/RestaurantsContext';
 
 //icons
-import { FiEdit2 } from "react-icons/fi";
-import { FiTrash } from "react-icons/fi";
+import { FiEdit2, FiTrash } from "react-icons/fi";
+
+
 import { UpdateRestaurant } from './UpdateRestaurant';
+
+
+import { StarsRating } from '../StarsRating';
 
 export const RestaurantsList = () => {
     const navigate = useNavigate();
@@ -51,6 +55,15 @@ export const RestaurantsList = () => {
     const [newLocation, setNewLocation] = useState("")
     const [newPriceRange, setNewPriceRange] = useState("Price Range?")
 
+    const renderRating = (restaurant) => {
+        return(
+            <div className='flex items-center gap-2'>
+                <StarsRating rating={restaurant.average_rating} />
+                <span className='text-warning'>({restaurant.count || 0})</span>
+            </div>
+        )
+    }
+
     return (
         <div className='w-[90%] mx-auto border-[1px] border-primary my-5 h-fit'>
             <div className="overflow-x-auto">
@@ -74,13 +87,7 @@ export const RestaurantsList = () => {
                                 <td>{restaurant.location}</td>
                                 <td>{"$".repeat(restaurant.price_range)}</td>
                                 <td>
-                                    <div className="rating">
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                    </div>
+                                    {renderRating(restaurant)}
                                 </td>
                                 <td className='flex gap-4'>
                                     <button 
