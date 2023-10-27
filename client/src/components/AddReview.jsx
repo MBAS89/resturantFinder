@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
+
+//Custom axios class that we created
 import RestaurantsApi from '../apis/RestaurantsApi'
+
+//toastify package for error and success handling
+import { toast } from 'react-toastify';
 
 export const AddReview = ({ restaurantId, setReviewAdded }) => {
     const [name, setName] = useState("")
@@ -16,11 +21,18 @@ export const AddReview = ({ restaurantId, setReviewAdded }) => {
             })
             setReviewAdded(true)
 
-            console.log(res)
+            toast.success(res.data.message)
+
+            //to close the pop up
+            document.getElementById('my_modal_2').close(); 
+
+            setName("")
+            setReviewBody("")
+            setRating("Rating?")
 
 
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.error)
         }
     }
 

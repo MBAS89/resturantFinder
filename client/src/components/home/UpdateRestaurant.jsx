@@ -1,22 +1,34 @@
 import React, { useContext } from 'react'
 
-//api
+//Custom axios class that we created
 import RestaurantsApi from '../../apis/RestaurantsApi'
+
+//Our Restaurant context api
 import { RestaurantsContext } from '../../context/RestaurantsContext'
+
+//toastify package for error and success handling
+import { toast } from 'react-toastify';
 
 export const UpdateRestaurant = ({updateId, setNewName, setNewLocation, setNewPriceRange, newName, newLocation, newPriceRange}) => {
     const { updateRestaurants } = useContext(RestaurantsContext);
 
-    const handleDelete = async () => {
-        const res  = await RestaurantsApi.put(`/${updateId}`, {
-            newName,
-            newLocation,
-            newPriceRange
-        })
-
-        updateRestaurants(res.data.data.restaurants[0]);
-
-        document.getElementById('my_modal_1').close(); 
+    const handleUpdate = async () => {
+        try {
+            const res  = await RestaurantsApi.put(`/${updateId}`, {
+                newName,
+                newLocation,
+                newPriceRange
+            })
+    
+            updateRestaurants(res.data.data.restaurants[0]);
+    
+            toast.success(res.data.message)
+    
+            //to close the pop up
+            document.getElementById('my_modal_1').close(); 
+        } catch (error) {
+            toast.error(error.response.data.error)
+        }        
     }
 
     return (
@@ -39,7 +51,7 @@ export const UpdateRestaurant = ({updateId, setNewName, setNewLocation, setNewPr
                         <button className="btn btn-neutral w-full">Cancel</button>
                     </form>
                     <div className='w-full'>
-                        <button onClick={handleDelete} className='btn btn-warning w-full'>Edit</button>
+                        <button onClick={handleUpdate} className='btn btn-warning w-full'>Edit</button>
                     </div>
                 </div>
             </div>

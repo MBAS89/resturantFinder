@@ -1,7 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
+
+//React Router Dom useParams is used to retrive the id from the URL parameter
 import { useParams } from 'react-router-dom'
+
+//Our Restaurant context api
 import { RestaurantsContext } from '../context/RestaurantsContext'
+
+//Custom axios class that we created
 import RestaurantsApi from '../apis/RestaurantsApi'
+
+//toastify package for error and success handling
+import { toast } from 'react-toastify';
+
+//Other Components
 import { StarsRating } from '../components/StarsRating'
 import { Reviews } from '../components/Reviews'
 import { AddReview } from '../components/AddReview'
@@ -23,7 +34,7 @@ export const RestaurantDetailPage = () => {
         setReviewDeleted(false)
 
       } catch (error) {
-        console.log(error)
+        toast.error(error.response.data.error)
       }
 
     }

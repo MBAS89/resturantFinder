@@ -6,6 +6,9 @@ import RestaurantsApi from '../../apis/RestaurantsApi'
 //context
 import { RestaurantsContext } from '../../context/RestaurantsContext'
 
+//toastify package for error and success handling
+import { toast } from 'react-toastify';
+
 export const AddRestaurant = () => {
   const { addRestaurants } = useContext(RestaurantsContext);
   const [name, setName] = useState("")
@@ -23,13 +26,17 @@ export const AddRestaurant = () => {
       })
 
       addRestaurants(res.data.data.restaurants[0]);
+      toast.success(res.data.message)
+
+      //empty all inputs fields after submit
+      setName("")
+      setLocation("")
+      setPriceRange("Price Range?")
 
     } catch (error) {
-      console.log(error)
+      toast.error(error.response.data.error)
     }
     
-
-
   }
 
 
